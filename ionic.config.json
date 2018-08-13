@@ -1,0 +1,7 @@
+{
+  "name": "R2D2App",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "ionic-angular"
+}
