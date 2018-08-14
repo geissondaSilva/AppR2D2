@@ -1,0 +1,48 @@
+page-chat{
+    .inputMensagem{
+        border-radius: 25px;
+        padding-left: 10px;
+        //background-color: red;
+        margin: 5px;
+        border: 2px solid color($colors, primary);
+    }
+
+    .enviar{
+        font-size: 30pt;
+        position: relative;
+        right: 10px;
+        top: 5px;
+    }
+
+    .mensagem{
+        padding: 5px;
+        height: 50px;
+        margin-left: 10px;
+        margin-right: 10px;
+    }
+
+    .pergunta{
+        padding: 10px;
+        background-color: grey;
+        border-radius: 15px 15px 15px 5px;
+        font-size: 12pt;
+        color: white;
+        position: absolute;
+        left: 10px;
+    }
+
+    .resposta{
+        padding: 10px;
+        background-color: color($colors, primary);
+        border-radius: 15px 5px 15px 15px;
+        font-size: 12pt;
+        color: white;
+        position: absolute;
+        right: 10px;
+        max-width: calc(100% - 10px);
+    }
+
+    .top{
+        height: 10px;
+    }
+}
