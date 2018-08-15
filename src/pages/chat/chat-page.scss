@@ -14,35 +14,24 @@ page-chat{
         top: 5px;
     }
 
-    .mensagem{
-        padding: 5px;
-        height: 50px;
-        margin-left: 10px;
-        margin-right: 10px;
-    }
-
-    .pergunta{
-        padding: 10px;
-        background-color: grey;
-        border-radius: 15px 15px 15px 5px;
-        font-size: 12pt;
-        color: white;
-        position: absolute;
-        left: 10px;
-    }
-
-    .resposta{
-        padding: 10px;
+    .remetente{
         background-color: color($colors, primary);
-        border-radius: 15px 5px 15px 15px;
-        font-size: 12pt;
-        color: white;
-        position: absolute;
-        right: 10px;
-        max-width: calc(100% - 10px);
+        border-radius: 5px 15px 15px 15px;
     }
 
-    .top{
-        height: 10px;
+    .destinatario{
+        background-color: grey;
+        border-radius: 15px 15px 5px 15px;
+    }
+    
+    .mensagem-simples{
+        padding: 10px;
+        display: table;
+        margin-bottom: 10px;
+        color: color($colors, light);
+    }
+    
+    .grupo-destinatario{
+        text-align: -webkit-right;
     }
 }
