@@ -4,7 +4,7 @@
     </ion-navbar>
 </ion-header>
 <ion-content padding>
-    <div>
+    <!--<div>
         <span class="mensagem-simples remetente">ola</span>
     </div>
     <div class="grupo-destinatario">
@@ -13,6 +13,21 @@
     <span class="mensagem-simples remetente">Estou bem e vc? Vamos fazer um teste para ver se esta merda vai quebrar linha.</span>
     <div class="card-mensagem">
         <ion-card class="card-pergunta" padding>
+            <div class="questao">Você gostaria de tomar um café?</div>
+            <div class="card-resposta">
+                <button ion-button>Sim</button>
+            </div>
+            <div class="card-resposta">
+                <button ion-button>Não</button>
+            </div>
+        </ion-card>
+    </div>-->
+    <div *ngFor="let msg of mensagens" [ngClass]="{'grupo-destinatario': msg.tipo == 'boot', 'card-mensagem': msg.tipo == 'resposta' }">
+        <span *ngIf="msg.tipo == 'remetente'" class="mensagem-simples remetente">ola</span>
+
+        <span *ngIf="msg.tipo == 'boot'" class="mensagem-simples destinatario">ola como vai?</span>
+
+        <ion-card *ngIf="msg.tipo == 'resposta'" class="card-pergunta" padding>
             <div class="questao">Você gostaria de tomar um café?</div>
             <div class="card-resposta">
                 <button ion-button>Sim</button>

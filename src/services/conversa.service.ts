@@ -1,21 +1,29 @@
-import { AbstractService } from "./abstract.service";
-import { Conversa } from "../models/conversa";
-import { Http, } from "../../node_modules/@angular/http";
-import { NovaConversaDto } from "../DTO/nova-conversa-dto";
+import { Injectable } from '@angular/core';
+import { Http, Response, RequestOptions, Headers } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/operator/toPromise';
+import 'rxjs/add/operator/map';
+import {map} from 'rxjs/operators';
 
-export class ConversaService extends AbstractService<Conversa>{
+import { AbstractService } from "./abstract.service";
+import { Conversa } from '../models/conversa';
+import { Header } from 'ionic-angular';
 
-    constructor(http: Http){
+@Injectable()
+export class ConversaService extends AbstractService<Conversa> {
+
+    constructor(protected http: Http) {
         super(http);
     }
 
-    getWebService(){
-        return '/conversa';
+    public getWebService():string{
+        return 'conversa';
     }
 
-    public novaConversa(nova:NovaConversaDto):Observable<NovaConversaDto>{
-        return //this.http.post(this.urlSistema + '/novaconversa', nova).subscribe
+    public novaConversa(nova):Observable<Conversa>{
+        let options = new RequestOptions();
+        options.headers = new Headers();
+        options.headers.append('Content-Type', 'application/json');
+        return this.http.post(this.urlWebSistema + '/novaconversa', nova, options).pipe(map(res => res.json()));
     }
-
 }

@@ -5,4 +5,5 @@ export class NovaConversaDto{
     
     public conversa:Conversa;
     public mensagens:Array<Mensagem> = [];
+    
 }
