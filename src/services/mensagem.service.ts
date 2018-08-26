@@ -7,23 +7,23 @@ import {map} from 'rxjs/operators';
 
 import { AbstractService } from "./abstract.service";
 import { Conversa } from '../models/conversa';
-import { Header } from 'ionic-angular';
+import { Mensagem } from '../models/mensagem';
 
 @Injectable()
-export class ConversaService extends AbstractService<Conversa> {
+export class MensagemService extends AbstractService<Mensagem> {
 
     constructor(protected http: Http) {
         super(http);
     }
 
     public getWebService():string{
-        return 'conversa';
+        return 'mensagem';
     }
 
-    public novaConversa(nova):Observable<Conversa>{
+    public novaMensagem(nova):Observable<Array<Mensagem>>{
         let options = new RequestOptions();
         options.headers = new Headers();
         options.headers.append('Content-Type', 'application/json');
-        return this.http.post(this.urlWebSistema + '/novaconversa/' + 'bemvindo', nova, options).pipe(map(res => res.json()));
+        return this.http.post(this.urlWebSistema + '/novamensagem' , nova, options).pipe(map(res => res.json()));
     }
 }

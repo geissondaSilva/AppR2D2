@@ -9,7 +9,8 @@ import { ListPage } from '../pages/list/list';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { ChatPage } from '../pages/chat/chat-page';
-import { HttpModule, Http } from '@angular/http';
+import { HttpModule } from '@angular/http';
+import { SpeechRecognition } from '@ionic-native/speech-recognition';
 
 @NgModule({
   declarations: [
@@ -32,6 +33,7 @@ import { HttpModule, Http } from '@angular/http';
   ],
   providers: [
     StatusBar,
+    SpeechRecognition,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]

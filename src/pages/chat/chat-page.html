@@ -23,9 +23,9 @@
         </ion-card>
     </div>-->
     <div *ngFor="let msg of mensagens" [ngClass]="{'grupo-destinatario': msg.tipo == 'boot', 'card-mensagem': msg.tipo == 'resposta' }">
-        <span *ngIf="msg.tipo == 'remetente'" class="mensagem-simples remetente">ola</span>
+        <span *ngIf="msg.tipo == 'user'" class="mensagem-simples remetente">{{msg.res}}</span>
 
-        <span *ngIf="msg.tipo == 'boot'" class="mensagem-simples destinatario">ola como vai?</span>
+        <span *ngIf="msg.tipo == 'boot'" class="mensagem-simples destinatario">{{msg.res}}</span>
 
         <ion-card *ngIf="msg.tipo == 'resposta'" class="card-pergunta" padding>
             <div class="questao">Você gostaria de tomar um café?</div>
@@ -42,12 +42,15 @@
     <ion-row>
         <ion-col>
             <div class="inputMensagem">
-                <ion-input></ion-input>
+                <ion-input [(ngModel)]="textoMensagem"></ion-input>
             </div>
         </ion-col>
         <ion-col col-2>
-            <button ion-button clear icon-only>
+            <button (click)="enviarMensagem(textoMensagem)" *ngIf="textoMensagem != null && textoMensagem != ''" ion-button clear icon-only>
                 <ion-icon class="enviar" name="send"></ion-icon>
+            </button>
+            <button (click)="reconhecer()" *ngIf="textoMensagem == null || textoMensagem == ''" ion-button clear icon-only>
+                <ion-icon class="enviar" name="mic"></ion-icon>
             </button>
         </ion-col>
     </ion-row>
