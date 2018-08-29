@@ -9,7 +9,7 @@ import 'rxjs/add/operator/toPromise';
 export abstract class AbstractService<T>{
   
   protected protocolo: string = 'http';
-  public ip: string = '10.10.10.136';
+  public ip: string = '192.168.2.112';
   public porta: string = '8080';
   protected contextBase: string = 'BaseWeb/rest/';
   protected contextSistema: string = 'api/r2d2/';

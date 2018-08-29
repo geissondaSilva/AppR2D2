@@ -24,6 +24,6 @@ export class MensagemService extends AbstractService<Mensagem> {
         let options = new RequestOptions();
         options.headers = new Headers();
         options.headers.append('Content-Type', 'application/json');
-        return this.http.post(this.urlWebSistema + '/novamensagem' , nova, options).pipe(map(res => res.json()));
+        return this.http.post(this.urlWebSistema + '/novamensagem/0' , nova, options).pipe(map(res => res.json()));
     }
 }
