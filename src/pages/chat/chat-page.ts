@@ -55,15 +55,22 @@ export class ChatPage {
         let msg:Mensagem = new Mensagem();
         msg.res = mens;
         msg.tipo = 'user';
+        msg.idConversa = this.conversa.id
         this.mensagens.push(msg);
         this.textoMensagem = null;
         this.mensagemService.novaMensagem(msg).subscribe(data =>{
             data.forEach(res =>{
                 this.mensagens.push(res);
             })
+            this.scrollRefresh();
         }, () =>{
             alert('erro ao mandar mensagem')
         })
+    }
+
+    public scrollRefresh(){
+        var doc = document.getElementById('content');
+        doc.scrollTop = doc.scrollHeight;
     }
 
 }

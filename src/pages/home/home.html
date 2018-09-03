@@ -7,13 +7,10 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content padding>
-  <h3>Ionic Menu Starter</h3>
-
-  <p>
-    If you get lost, the <a href="http://ionicframework.com/docs/v2">docs</a> will show you the way.
-  </p>
-
-  <button ion-button secondary menuToggle>Toggle Menu</button>
-  <button ion-button secondary (click)="abrirChat()">Abrir Chat</button>
+<ion-content padding id="content">
+  <ion-fab bottom right>
+    <button (click)="abrirChat()" color="secondary" ion-fab>
+      <ion-icon name="chatbubbles"></ion-icon>
+    </button>
+  </ion-fab>
 </ion-content>

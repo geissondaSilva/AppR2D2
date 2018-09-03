@@ -21,13 +21,23 @@
                 <button ion-button>Não</button>
             </div>
         </ion-card>
+    </div>
+    <div class="card-mensagem">
+        <ion-card class="resposta">
+            <ion-card-header>
+                <ion-card-title>Por que anaquin morreu</ion-card-title>
+            </ion-card-header>
+            <ion-card-content>
+                <p>Por que ele é um merda que não sabia lutar direito</p>
+            </ion-card-content>
+        </ion-card>
     </div>-->
     <div *ngFor="let msg of mensagens" [ngClass]="{'grupo-destinatario': msg.tipo == 'boot', 'card-mensagem': msg.tipo == 'resposta' }">
         <span *ngIf="msg.tipo == 'user'" class="mensagem-simples remetente">{{msg.res}}</span>
 
         <span *ngIf="msg.tipo == 'boot'" class="mensagem-simples destinatario">{{msg.res}}</span>
 
-        <ion-card *ngIf="msg.tipo == 'resposta'" class="card-pergunta" padding>
+        <ion-card *ngIf="msg.tipo == 'pergunta'" class="card-pergunta" padding>
             <div class="questao">Você gostaria de tomar um café?</div>
             <div class="card-resposta">
                 <button ion-button>Sim</button>
@@ -36,13 +46,22 @@
                 <button ion-button>Não</button>
             </div>
         </ion-card>
+
+        <ion-card *ngIf="msg.tipo == 'resposta'" class="resposta">
+            <ion-card-header>
+                <ion-card-title>{{msg.res}}</ion-card-title>
+            </ion-card-header>
+            <ion-card-content>
+                <p>{{msg.resposta.value}}</p>
+            </ion-card-content>
+        </ion-card>
     </div>
 </ion-content>
 <ion-footer>
     <ion-row>
         <ion-col>
             <div class="inputMensagem">
-                <ion-input [(ngModel)]="textoMensagem"></ion-input>
+                <ion-input [(ngModel)]="textoMensagem" (ionFocus)="scrollRefresh()" (ionBlur)="scrollRefresh()"></ion-input>
             </div>
         </ion-col>
         <ion-col col-2>
