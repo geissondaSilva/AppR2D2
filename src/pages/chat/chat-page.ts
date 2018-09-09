@@ -58,7 +58,19 @@ export class ChatPage {
         msg.idConversa = this.conversa.id
         this.mensagens.push(msg);
         this.textoMensagem = null;
-        this.mensagemService.novaMensagem(msg).subscribe(data =>{
+        let idPergunta = 0;
+
+        if(this.mensagens.length < 1){
+            idPergunta = 0;
+        }else{
+            for(let i = 0;i < this.mensagens[this.mensagens.length - 1].res.length;i++){
+                if(this.mensagens[this.mensagens.length - 1].res[i] == '?' && this.mensagens[this.mensagens.length - 1].tipo == 'boot'){
+                    idPergunta = 1;
+                }
+            }
+        }
+
+        this.mensagemService.novaMensagem(msg, idPergunta).subscribe(data =>{
             data.forEach(res =>{
                 this.mensagens.push(res);
             })
