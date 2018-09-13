@@ -11,13 +11,15 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { ChatPage } from '../pages/chat/chat-page';
 import { HttpModule } from '@angular/http';
 import { SpeechRecognition } from '@ionic-native/speech-recognition';
+import { DrivePage } from '../pages/drive/drive-page';
 
 @NgModule({
   declarations: [
     MyApp,
     HomePage,
     ListPage,
-    ChatPage
+    ChatPage,
+    DrivePage
   ],
   imports: [
     BrowserModule,
@@ -29,7 +31,8 @@ import { SpeechRecognition } from '@ionic-native/speech-recognition';
     MyApp,
     HomePage,
     ListPage,
-    ChatPage
+    ChatPage,
+    DrivePage
   ],
   providers: [
     StatusBar,

@@ -8,14 +8,17 @@ import 'rxjs/add/operator/toPromise';
 @Injectable()
 export abstract class AbstractService<T>{
   
-  protected protocolo: string = 'http';
-  public ip: string = '10.10.10.136';
+  protected protocolo: string = 'https';
+  public ip: string = 'tranquil-fjord-34651.herokuapp.com';
+  //protected protocolo: string = 'http';
+  //public ip: string = '192.168.2.112';
   public porta: string = '8080';
   protected contextBase: string = 'BaseWeb/rest/';
   protected contextSistema: string = 'api/r2d2/';
   protected contextAdmin: string = 'AdminWeb/rest/';
   protected urlBase: string = this.protocolo + '://' + this.ip + ':' + this.porta + '/' + this.contextBase;
-  protected urlSistema: string = this.protocolo + '://' + this.ip + ':' + this.porta + '/' + this.contextSistema;
+  //protected urlSistema: string = this.protocolo + '://' + this.ip + ':' + this.porta + '/' + this.contextSistema;
+  protected urlSistema: string = this.protocolo + '://' + this.ip + '/' + this.contextSistema;
   public urlWebBase:string = '';
   protected urlWebSistema:string = '';
 

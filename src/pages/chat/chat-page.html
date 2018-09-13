@@ -1,6 +1,10 @@
 <ion-header>
     <ion-navbar color="primary">
         <ion-title>Chat R2D2</ion-title>
+        <div *ngIf="digitando" class="info">Digitando...</div>
+        <button clear class="btn-options" (click)="abrirOpcoes()" ion-button ion-only>
+            <ion-icon name="md-more"></ion-icon>
+        </button>
     </ion-navbar>
 </ion-header>
 <ion-content class="fundo" padding>
