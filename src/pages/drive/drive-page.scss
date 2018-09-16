@@ -1,0 +1,51 @@
+drive-page{
+
+    ion-content{
+        background-image: url('./../../assets/imgs/fundo.jpg');
+        background-repeat: no-repeat;
+        background-size: contain;
+        background-size: cover;
+    }
+
+    .mov-control{
+        position: absolute;
+        width: 80%;
+        padding-bottom: 80%;
+        left: 10%;
+        bottom: 20%;
+    }
+
+    .btn-control{
+        position: absolute;
+        height: 30%;
+        width: 30%;
+        color: #f4f4f4;
+        font-size: 2em;
+        text-shadow: 1px 1px 4px black;
+    }
+
+    .btn-up{
+        top: 0;
+        left: 35%;
+    }
+
+    .btn-right{
+        right: 0;
+        top: 35%;
+    }
+
+    .btn-down{
+        bottom: 0;
+        left: 35%;
+    }
+
+    .btn-left{
+        left: 0;
+        top: 35%;
+    }
+
+    .btn-center{
+        top: 35%;
+        left: 35%;
+    }
+}

@@ -36,7 +36,7 @@
             </ion-card-content>
         </ion-card>
     </div>-->
-    <div *ngFor="let msg of mensagens" [ngClass]="{'grupo-destinatario': msg.tipo == 'boot', 'card-mensagem': msg.tipo == 'resposta' }">
+    <div *ngFor="let msg of mensagens" [ngClass]="{'grupo-destinatario': msg.tipo == 'boot', 'card-mensagem': msg.tipo == 'resposta', 'acao-robo': msg.tipo == 'acao' }">
         <span *ngIf="msg.tipo == 'user'" class="mensagem-simples remetente">{{msg.res}}</span>
 
         <span *ngIf="msg.tipo == 'boot'" class="mensagem-simples destinatario">{{msg.res}}</span>
@@ -59,13 +59,18 @@
                 <p>{{msg.resposta.value}}</p>
             </ion-card-content>
         </ion-card>
+
+        <div *ngIf="msg.tipo == 'acao'" class="card-imagem-perfil">
+            <img src="./../../assets/imgs/perfil.jpg" class="perfil-robo">
+            <span class="text-info">{{msg.res}}</span>
+        </div>
     </div>
 </ion-content>
 <ion-footer>
     <ion-row>
         <ion-col>
             <div class="inputMensagem">
-                <ion-input [(ngModel)]="textoMensagem" (ionFocus)="scrollRefresh()" (ionBlur)="scrollRefresh()"></ion-input>
+                <ion-input [(ngModel)]="textoMensagem" (ionFocus)="atualizarScroolFoco()" (ionBlur)="scrollRefresh()"></ion-input>
             </div>
         </ion-col>
         <ion-col col-2>

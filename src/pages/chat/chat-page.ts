@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { NavController, AlertController } from 'ionic-angular';
 import { ConversaService } from '../../services/conversa.service';
 import { Conversa } from '../../models/conversa';
 import { Mensagem } from '../../models/mensagem';
 import { SpeechRecognition } from '@ionic-native/speech-recognition';
 import { MensagemService } from '../../services/mensagem.service';
-import { ActionSheetController } from 'ionic-angular'
+import { ActionSheetController } from 'ionic-angular';
+import { BluetoothSerial } from '@ionic-native/bluetooth-serial';
 
 @Component({
     selector: 'page-chat',
@@ -24,13 +25,18 @@ export class ChatPage {
     private conversaService:ConversaService,
     private speechRecognition: SpeechRecognition,
     private mensagemService:MensagemService,
-    public actionCtrl:ActionSheetController) {
+    public actionCtrl:ActionSheetController,
+    private alertCtrl:AlertController,
+    private Bbluetooth:BluetoothSerial) {
         this.novaConversa();
 
         //reconhecimento de voz permissao
         this.speechRecognition.isRecognitionAvailable().then((available: boolean) => console.log(available));
 
+        this.Bbluetooth.available();
+
         this.speechRecognition.requestPermission().then(() => console.log('Granted'),() => console.log('Denied'));
+         this.initializeApp();
     }
 
     public reconhecer(){
@@ -40,6 +46,50 @@ export class ChatPage {
         },(onerror) => {
             
         });
+    }
+
+    public initializeApp(){
+        this.alertCtrl.create({
+            title: "Concetar-se via Bluetooth",
+            message: 'Deseja se conectar via Bluetooth com o R2D2',
+            buttons:[
+                {
+                    text: 'Não',
+                    role: 'cancel'
+                },
+                {
+                    text: 'Sim',
+                    handler: () =>{
+                        this.conectar();
+                    }
+                }
+            ]
+        }).present();
+    }
+
+    public conectar(){
+        this.Bbluetooth.isConnected().then(con =>{
+            console.log(con);
+        }).catch(() =>{
+            this.alertCtrl.create({
+                title: 'Atenção!',
+                message: 'Você precisa ativar a conexão bluetooth!',
+                buttons: [
+                    {
+                        text: 'Ok',
+                        handler: () =>{
+                            this.Bbluetooth.showBluetoothSettings().then((d) =>{
+                                this.Bbluetooth.isConnected().then(() =>{
+                                    this.Bbluetooth.list().then(data =>{
+                                        console.log('lista de dispositivos', data);
+                                    })
+                                })
+                            })
+                        }
+                    }
+                ]
+            }).present();
+        })
     }
 
     public novaConversa(){
@@ -94,8 +144,15 @@ export class ChatPage {
     }
 
     public scrollRefresh(){
-        var doc = document.getElementById('content');
-        doc.scrollTop = doc.scrollHeight;
+        var doc = document.getElementsByClassName("scroll-content");
+        let u = doc.length - 1;
+        doc[u].scrollTop = doc[u].scrollHeight;
+    }
+
+    public atualizarScroolFoco(){
+        setTimeout(() => {
+            this.scrollRefresh();
+        }, 500);
     }
 
     public abrirOpcoes(){

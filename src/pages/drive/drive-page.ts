@@ -1,4 +1,5 @@
 import { Component } from "@angular/core";
+import { StatusBar } from "@ionic-native/status-bar";
 
 @Component({
     selector: 'drive-page',
@@ -7,8 +8,13 @@ import { Component } from "@angular/core";
 
 export class DrivePage{
     
-    constructor(){
+    constructor(private statusBar:StatusBar){
+        this.statusBar.overlaysWebView(true);
+    }
 
+    ionViewDidLeave(){
+        this.statusBar.overlaysWebView(false);
+        this.statusBar.backgroundColorByHexString('#2979ff');
     }
 
 }

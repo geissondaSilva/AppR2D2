@@ -12,6 +12,7 @@ import { ChatPage } from '../pages/chat/chat-page';
 import { HttpModule } from '@angular/http';
 import { SpeechRecognition } from '@ionic-native/speech-recognition';
 import { DrivePage } from '../pages/drive/drive-page';
+import { BluetoothSerial } from '@ionic-native/bluetooth-serial';
 
 @NgModule({
   declarations: [
@@ -38,6 +39,7 @@ import { DrivePage } from '../pages/drive/drive-page';
     StatusBar,
     SpeechRecognition,
     SplashScreen,
+    BluetoothSerial,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })
