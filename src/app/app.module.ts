@@ -13,6 +13,7 @@ import { HttpModule } from '@angular/http';
 import { SpeechRecognition } from '@ionic-native/speech-recognition';
 import { DrivePage } from '../pages/drive/drive-page';
 import { BluetoothSerial } from '@ionic-native/bluetooth-serial';
+import { NavigationBar } from '@ionic-native/navigation-bar';
 
 @NgModule({
   declarations: [
@@ -40,6 +41,7 @@ import { BluetoothSerial } from '@ionic-native/bluetooth-serial';
     SpeechRecognition,
     SplashScreen,
     BluetoothSerial,
+    NavigationBar,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })
