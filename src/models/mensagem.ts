@@ -7,4 +7,6 @@ export class Mensagem{
     public res:string;
     public tipo:string;
     public resposta:Resposta;
+    public name:string;
+    public idDialogo:number;
 }

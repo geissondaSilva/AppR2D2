@@ -7,6 +7,7 @@ import { SpeechRecognition } from '@ionic-native/speech-recognition';
 import { MensagemService } from '../../services/mensagem.service';
 import { ActionSheetController } from 'ionic-angular';
 import { BluetoothSerial } from '@ionic-native/bluetooth-serial';
+import { Comandos } from '../../assets/scripts/comandos';
 
 @Component({
     selector: 'page-chat',
@@ -20,6 +21,7 @@ export class ChatPage {
     public mensagens:Mensagem[] = [];
     public textoMensagem:string = null;
     public digitando:boolean = false;
+    public comando:Comandos = new Comandos();
 
     constructor(public navCtrl: NavController,
     private conversaService:ConversaService,
@@ -27,13 +29,13 @@ export class ChatPage {
     private mensagemService:MensagemService,
     public actionCtrl:ActionSheetController,
     private alertCtrl:AlertController,
-    private Bbluetooth:BluetoothSerial) {
+    private bluetooth:BluetoothSerial) {
         this.novaConversa();
 
         //reconhecimento de voz permissao
         this.speechRecognition.isRecognitionAvailable().then((available: boolean) => console.log(available));
 
-        this.Bbluetooth.available();
+        this.bluetooth.available();
 
         this.speechRecognition.requestPermission().then(() => console.log('Granted'),() => console.log('Denied'));
          this.initializeApp();
@@ -68,7 +70,7 @@ export class ChatPage {
     }
 
     public conectar(){
-        this.Bbluetooth.isConnected().then(con =>{
+        this.bluetooth.isConnected().then(con =>{
             console.log(con);
         }).catch(() =>{
             this.alertCtrl.create({
@@ -78,9 +80,9 @@ export class ChatPage {
                     {
                         text: 'Ok',
                         handler: () =>{
-                            this.Bbluetooth.showBluetoothSettings().then((d) =>{
-                                this.Bbluetooth.isConnected().then(() =>{
-                                    this.Bbluetooth.list().then(data =>{
+                            this.bluetooth.showBluetoothSettings().then((d) =>{
+                                this.bluetooth.isConnected().then(() =>{
+                                    this.bluetooth.list().then(data =>{
                                         console.log('lista de dispositivos', data);
                                     })
                                 })
@@ -124,17 +126,39 @@ export class ChatPage {
         if(this.mensagens.length < 1){
             idPergunta = 0;
         }else{
-            let p = this.mensagens[this.mensagens.length - 2].res
+            /*let p = this.mensagens[this.mensagens.length - 2].res
             p = p[p.length - 1];
             if(p == '?'){
                 idPergunta = 1;
+            }*/
+            for(let i = this.mensagens.length - 1; i >= 0;i--){
+                let m = this.mensagens[i];
+                if(m.name == 'novodialogo' || m.name == 'filha'){
+                    let p = m.res;
+                    p = p[p.length - 1];
+                    if(p == '?'){
+                        idPergunta = 1;
+                        msg.idDialogo = m.idDialogo;
+                    }
+                    break;
+                }
+
+                if(m.name == 'subresposta' || m.tipo == 'acao' || m.tipo == 'resposta'){
+                    break;
+                }
             }
         }
+
         this.digitando = true;
         this.mensagemService.novaMensagem(msg, idPergunta).subscribe(data =>{
             this.digitando = false;
             data.forEach(res =>{
-                this.mensagens.push(res);
+                setTimeout(() => {
+                    this.mensagens.push(res);
+                    if(res.tipo == 'acao'){
+                        this.mandarComando(res.name);
+                    }
+                }, 50);
             })
             this.scrollRefresh();
         }, () =>{
@@ -173,6 +197,15 @@ export class ChatPage {
                 }
             ]
         }).present();
+    }
+
+    public mandarComando(comando:string){
+        this.bluetooth.isConnected().then(data =>{
+            comando = this.comando.getComando(comando);
+            this.bluetooth.write(comando);
+        }).catch(error =>{
+            console.log('error')
+        })
     }
 
 }
