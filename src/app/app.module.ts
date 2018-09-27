@@ -14,6 +14,8 @@ import { SpeechRecognition } from '@ionic-native/speech-recognition';
 import { DrivePage } from '../pages/drive/drive-page';
 import { BluetoothSerial } from '@ionic-native/bluetooth-serial';
 import { NavigationBar } from '@ionic-native/navigation-bar';
+import { SobrePage } from '../pages/sobre/sobre-page';
+import { PersonagensPage } from '../pages/personagens/pesonagens-page';
 
 @NgModule({
   declarations: [
@@ -21,7 +23,9 @@ import { NavigationBar } from '@ionic-native/navigation-bar';
     HomePage,
     ListPage,
     ChatPage,
-    DrivePage
+    DrivePage,
+    SobrePage,
+    PersonagensPage
   ],
   imports: [
     BrowserModule,
@@ -34,7 +38,9 @@ import { NavigationBar } from '@ionic-native/navigation-bar';
     HomePage,
     ListPage,
     ChatPage,
-    DrivePage
+    DrivePage,
+    SobrePage,
+    PersonagensPage
   ],
   providers: [
     StatusBar,

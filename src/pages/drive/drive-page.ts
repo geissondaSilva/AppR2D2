@@ -14,15 +14,11 @@ export class DrivePage{
     constructor(private statusBar:StatusBar, private bluetoothSerial:BluetoothSerial,
     private alert:AlertController, private navigationBar:NavigationBar){
         this.statusBar.overlaysWebView(true);
-        this.navigationBar.hideNavigationBar();
-        this.navigationBar.setUp(false);
     }
 
     ionViewDidLeave(){
         this.statusBar.overlaysWebView(false);
         this.statusBar.backgroundColorByHexString('#2979ff');
-        this.navigationBar.hideNavigationBar();
-        this.navigationBar.setUp(true);
     }
 
     public inicializarBluetooth(){

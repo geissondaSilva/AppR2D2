@@ -1,10 +1,12 @@
 import { Component, ViewChild } from '@angular/core';
-import { Nav, Platform } from 'ionic-angular';
+import { Nav, Platform, MenuController } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { HomePage } from '../pages/home/home';
 import { ListPage } from '../pages/list/list';
+import { SobrePage } from '../pages/sobre/sobre-page';
+import { PersonagensPage } from '../pages/personagens/pesonagens-page';
 
 
 @Component({
@@ -12,6 +14,7 @@ import { ListPage } from '../pages/list/list';
 })
 export class MyApp {
     @ViewChild(Nav) nav: Nav;
+    @ViewChild('menu') menu:MenuController;
 
     rootPage: any = HomePage;
 
@@ -35,9 +38,18 @@ export class MyApp {
         });
     }
 
-    openPage(page) {
-        // Reset the content nav to have just this page
-        // we wouldn't want the back button to show in this scenario
-        this.nav.setRoot(page.component);
+    openHome(){
+        this.nav.setRoot(HomePage);
+        this.menu.toggle();
+    }
+
+    openSobre(){
+        this.nav.push(SobrePage);
+        this.menu.toggle();
+    }
+
+    openPersonagens(){
+        this.nav.push(PersonagensPage);
+        this.menu.toggle();
     }
 }

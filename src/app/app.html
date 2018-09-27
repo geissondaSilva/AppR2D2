@@ -1,4 +1,4 @@
-<ion-menu [content]="content">
+<ion-menu #menu [content]="content">
     <ion-header>
         <img src="./../assets/imgs/fundo-menu.jpg" class="imagem-menu">
         <img class="perfil sombra" src="./../assets/imgs/default.jpeg" alt="">
@@ -10,13 +10,19 @@
 
     <ion-content>
         <ion-list inset>
-            <button class="item-menu" ion-item>
+            <button class="item-menu" (click)="openHome()" ion-item>
                 <ion-icon name="home"></ion-icon>
                 <span class="text-item-menu">Home</span>
             </button>
-            <button class="item-menu" ion-item>
+            
+            <button (click)="openPersonagens()" class="item-menu" ion-item>
                 <ion-icon name="person"></ion-icon>
                 <span class="text-item-menu">Personagens</span>
+            </button>
+
+            <button (click)="openSobre()" class="item-menu" ion-item>
+                <ion-icon name="information-circle"></ion-icon>
+                <span class="text-item-menu">Sobre</span>
             </button>
         </ion-list>
     </ion-content>

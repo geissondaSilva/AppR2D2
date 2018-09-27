@@ -95,6 +95,8 @@ export class ChatPage {
     }
 
     public novaConversa(){
+        this.conversa = null;
+        this.mensagens = [];
         let conversa:Conversa = new Conversa();
         conversa.idDispositivo = 1;
         this.digitando = true;
@@ -158,7 +160,7 @@ export class ChatPage {
                     if(res.tipo == 'acao'){
                         this.mandarComando(res.name);
                     }
-                }, 50);
+                }, 200);
             })
             this.scrollRefresh();
         }, () =>{
@@ -184,12 +186,16 @@ export class ChatPage {
             title: 'Opções',
             buttons: [
                 {
-                    text: 'Excluir conversa',
-                    icon: 'trash'
+                    text: 'Conectar-se ao R2D2',
+                    icon: 'bluetooth',
+                    
                 },
                 {
                     text: 'Nova conversa',
-                    icon: 'chatboxes'
+                    icon: 'chatboxes',
+                    handler: () =>{
+                        this.novaConversa();
+                    }
                 },
                 {
                     text: 'Cancelar',
