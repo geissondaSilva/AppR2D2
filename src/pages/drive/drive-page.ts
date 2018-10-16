@@ -3,6 +3,7 @@ import { StatusBar } from "@ionic-native/status-bar";
 import { BluetoothSerial } from "@ionic-native/bluetooth-serial";
 import { AlertController } from "ionic-angular";
 import { NavigationBar } from "@ionic-native/navigation-bar";
+import { Comandos } from "../../assets/scripts/comandos";
 
 @Component({
     selector: 'drive-page',
@@ -10,6 +11,9 @@ import { NavigationBar } from "@ionic-native/navigation-bar";
 })
 
 export class DrivePage{
+
+    public comandos:Comandos = new Comandos();
+    public ativo:boolean = false;
     
     constructor(private statusBar:StatusBar, private bluetoothSerial:BluetoothSerial,
     private alert:AlertController, private navigationBar:NavigationBar){
@@ -24,7 +28,7 @@ export class DrivePage{
     public inicializarBluetooth(){
         this.bluetoothSerial.isEnabled().then(data =>{
             console.log(data);
-            this.buscarDispositivos();
+            this.conectar();
         }).catch(() =>{
             
         })
@@ -45,7 +49,7 @@ export class DrivePage{
                     text: 'Sim',
                     handler: () =>{
                         this.bluetoothSerial.enable().then(data =>{
-                            this.buscarDispositivos();
+                            this.conectar();
                         }).catch(error =>{
                             this.alert.create({
                                 title: 'Ops, deu pau!',
@@ -63,11 +67,27 @@ export class DrivePage{
         }).present();
     }
 
-    public buscarDispositivos(){
-        this.bluetoothSerial.discoverUnpaired().then(data =>{
-            console.log('buscando devices', data)
-        }).then(err =>{
-            console.log('error aao encontrar devices', err)
+    public conectar(){
+        this.bluetoothSerial.connect('00:21:13:04:5F:2F').subscribe(data =>{
+            alert(data);
+            this.ativo = true;
+        }, (err) =>{
+            alert(err);
+        })
+    }
+
+    public acenderLed(){
+        if(!this.ativo)return;
+        let a = this.comandos.getComando('acenderled');
+        this.bluetoothSerial.write(a);
+    }
+
+    public run(a:string){
+        if(!this.ativo)return;
+        this.bluetoothSerial.write(a).then(data =>{
+            alert(data)
+        }, err =>{
+            alert(err)
         })
     }
 

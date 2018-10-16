@@ -1,18 +1,15 @@
 export class Comandos{
     private comandos = {
-        "stop": "0",
+        "breaking": "0",
         "runfront": '1',
-        "runleft": '2',
-        "runback": '3',
-        "runright": '4',
-        "front": '5',
-        "back": '6',
-        "right": '7',
-        "left": '8',
-        "girardir": '9',
-        "giraresq": 'a',
-        "led": 'b',
-        "setar": 'c'
+        "runback": '2',
+        "runright": '3',
+        "runleft": '4',
+        "stoping": '5',
+        "seeleft": '6',
+        "seeright": '7',
+        "nop": '8',
+        "acenderled": '9'
     }
 
     public getComando(value:string){

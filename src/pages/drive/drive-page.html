@@ -6,29 +6,29 @@
     </ion-fab>
 
     <ion-fab bottom right>
-        <button color="light" ion-fab>
+        <button (click)="run('9')" color="light" ion-fab>
             <ion-icon name="bulb"></ion-icon>
         </button>
     </ion-fab>
 
     <div class="mov-control">
-        <button ion-button icon-only clear class="btn-control btn-up">
+        <button ion-button icon-only clear (click)="run('1')" class="btn-control btn-up">
             <ion-icon name="ios-arrow-up"></ion-icon>
         </button>
 
-        <button ion-button icon-only clear class="btn-control btn-right">
+        <button ion-button icon-only clear (click)="run('3')" class="btn-control btn-right">
             <ion-icon name="ios-arrow-forward"></ion-icon>
         </button>
 
-        <button ion-button icon-only clear class="btn-control btn-left">
+        <button ion-button icon-only clear (click)="run('4')" class="btn-control btn-left">
             <ion-icon name="ios-arrow-back"></ion-icon>
         </button>
 
-        <button ion-button icon-only clear class="btn-control btn-down">
+        <button ion-button icon-only clear (click)="run('2')" class="btn-control btn-down">
             <ion-icon name="ios-arrow-down"></ion-icon>
         </button>
 
-        <button ion-button icon-only clear class="btn-control btn-center">
+        <button ion-button icon-only clear (click)="run('0')" class="btn-control btn-center">
             <ion-icon name="square"></ion-icon>
         </button>
     </div>
