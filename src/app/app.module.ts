@@ -3,17 +3,18 @@ import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 
 import { MyApp } from './app.component';
-import { HomePage } from '../pages/home/home';
-import { ListPage } from '../pages/list/list';
-
+import { HttpModule } from '@angular/http';
+import { Geolocation } from '@ionic-native/geolocation';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
-import { ChatPage } from '../pages/chat/chat-page';
-import { HttpModule } from '@angular/http';
 import { SpeechRecognition } from '@ionic-native/speech-recognition';
-import { DrivePage } from '../pages/drive/drive-page';
 import { BluetoothSerial } from '@ionic-native/bluetooth-serial';
 import { NavigationBar } from '@ionic-native/navigation-bar';
+
+import { ListPage } from '../pages/list/list';
+import { HomePage } from '../pages/home/home';
+import { ChatPage } from '../pages/chat/chat-page';
+import { DrivePage } from '../pages/drive/drive-page';
 import { SobrePage } from '../pages/sobre/sobre-page';
 import { PersonagensPage } from '../pages/personagens/pesonagens-page';
 
@@ -45,6 +46,7 @@ import { PersonagensPage } from '../pages/personagens/pesonagens-page';
   providers: [
     StatusBar,
     SpeechRecognition,
+    Geolocation,
     SplashScreen,
     BluetoothSerial,
     NavigationBar,

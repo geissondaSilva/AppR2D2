@@ -8,11 +8,14 @@ import { MensagemService } from '../../services/mensagem.service';
 import { ActionSheetController } from 'ionic-angular';
 import { BluetoothSerial } from '@ionic-native/bluetooth-serial';
 import { Comandos } from '../../assets/scripts/comandos';
+import { Geolocation } from '@ionic-native/geolocation';
+import { LocalizacaoService } from '../../services/localizacao.service';
+import { ClimaService } from '../../services/clima.service';
 
 @Component({
     selector: 'page-chat',
     templateUrl: 'chat-page.html',
-    providers: [ConversaService, MensagemService]
+    providers: [ConversaService, MensagemService, LocalizacaoService, ClimaService]
 })
 
 export class ChatPage {
@@ -29,9 +32,12 @@ export class ChatPage {
     private mensagemService:MensagemService,
     public actionCtrl:ActionSheetController,
     private alertCtrl:AlertController,
-    private bluetooth:BluetoothSerial) {
-        this.novaConversa();
-
+    private bluetooth:BluetoothSerial,
+    private geolocation: Geolocation,
+    private localizacao: LocalizacaoService,
+    private clima: ClimaService) {
+        //this.novaConversa();
+        this.exibirClima();
         //reconhecimento de voz permissao
         this.speechRecognition.isRecognitionAvailable().then((available: boolean) => console.log(available));
 
@@ -214,4 +220,41 @@ export class ChatPage {
         })
     }
 
+    public funcionalidades(action: string){
+        switch (action) {
+            case 'hora':
+                
+                break;
+            case 'data':
+
+                break;
+            case 'clima':
+
+                break;
+            default:
+            break;
+        }
+    }
+
+    public exibirHora(){
+
+    }
+
+    public exibirData(){
+
+    }
+
+    public exibirClima(){
+        //buscar a localizacao
+        this.geolocation.getCurrentPosition().then(position =>{
+            console.log('position', position);
+            //buscar cidade e estado
+            this.clima.buscarIdCidade('Pato Branco', 'PR').subscribe(res =>{
+                console.log('idcidade',res)
+                this.clima.buscarClimaAtual(res[0].id).subscribe(clima =>{
+                    console.log('clima', clima);
+                })
+            })
+        })
+    }
 }
