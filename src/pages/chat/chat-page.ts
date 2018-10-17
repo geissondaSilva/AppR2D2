@@ -13,6 +13,7 @@ import { LocalizacaoService } from '../../services/localizacao.service';
 import { ClimaService } from '../../services/clima.service';
 import { DatePipe } from '@angular/common';
 import { Util } from './../util';
+import { Resposta } from '../../models/resposta';
 
 @Component({
     selector: 'page-chat',
@@ -162,13 +163,15 @@ export class ChatPage {
             this.digitando = false;
             data.forEach(res =>{
                 setTimeout(() => {
-                    if(res.tipo == 'acao'){
-                        let msg: Mensagem = this.funcionalidades(res.name, res);
+                    if(res.resposta != null){
+                        let msg: Mensagem = this.funcionalidades(res.resposta.value, res);
                         if(msg = null){
                             this.mandarComando(res.name);
                         }else{
                             this.mensagens.push(msg);
                         }
+                    }else if(res.tipo == 'acao'){
+                        this.mandarComando(res.name)
                     }else{
                         this.mensagens.push(res);
                     }
@@ -231,6 +234,7 @@ export class ChatPage {
             case 'hora':
                 let date = this.pipeDate.transform(new Date(), 'HH:mm')
                 msg.res = 'Agora são ' + date;
+                msg.tipo = 'acao'
                 break;
             case 'data':
                 let data = new Date();
@@ -238,6 +242,7 @@ export class ChatPage {
                 let mes = this.util.buscarMes(data.getMonth());
                 let semana = this.util.buscarSemana(data.getDay());
                 msg.res = 'Hoje é ' + semana + ' dia ' + dia + ' de ' + mes + ' de  ' + data.getFullYear();
+                msg.tipo = 'acao'
                 break;
             case 'clima':
                 this.exibirClima();
