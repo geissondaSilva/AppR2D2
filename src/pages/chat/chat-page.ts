@@ -11,6 +11,8 @@ import { Comandos } from '../../assets/scripts/comandos';
 import { Geolocation } from '@ionic-native/geolocation';
 import { LocalizacaoService } from '../../services/localizacao.service';
 import { ClimaService } from '../../services/clima.service';
+import { DatePipe } from '@angular/common';
+import { Util } from './../util';
 
 @Component({
     selector: 'page-chat',
@@ -25,6 +27,8 @@ export class ChatPage {
     public textoMensagem:string = null;
     public digitando:boolean = false;
     public comando:Comandos = new Comandos();
+    public util: Util = new Util();
+    private pipeDate: DatePipe;
 
     constructor(public navCtrl: NavController,
     private conversaService:ConversaService,
@@ -36,7 +40,7 @@ export class ChatPage {
     private geolocation: Geolocation,
     private localizacao: LocalizacaoService,
     private clima: ClimaService) {
-        //this.novaConversa();
+        this.novaConversa();
         this.exibirClima();
         //reconhecimento de voz permissao
         this.speechRecognition.isRecognitionAvailable().then((available: boolean) => console.log(available));
@@ -127,6 +131,7 @@ export class ChatPage {
         msg.res = mens;
         msg.tipo = 'user';
         msg.idConversa = this.conversa.id
+        msg.obj = undefined;
         this.mensagens.push(msg);
         this.textoMensagem = null;
         let idPergunta = 0;
@@ -134,11 +139,6 @@ export class ChatPage {
         if(this.mensagens.length < 1){
             idPergunta = 0;
         }else{
-            /*let p = this.mensagens[this.mensagens.length - 2].res
-            p = p[p.length - 1];
-            if(p == '?'){
-                idPergunta = 1;
-            }*/
             for(let i = this.mensagens.length - 1; i >= 0;i--){
                 let m = this.mensagens[i];
                 if(m.name == 'novodialogo' || m.name == 'filha'){
@@ -162,9 +162,15 @@ export class ChatPage {
             this.digitando = false;
             data.forEach(res =>{
                 setTimeout(() => {
-                    this.mensagens.push(res);
                     if(res.tipo == 'acao'){
-                        this.mandarComando(res.name);
+                        let msg: Mensagem = this.funcionalidades(res.name, res);
+                        if(msg = null){
+                            this.mandarComando(res.name);
+                        }else{
+                            this.mensagens.push(msg);
+                        }
+                    }else{
+                        this.mensagens.push(res);
                     }
                 }, 200);
             })
@@ -220,20 +226,26 @@ export class ChatPage {
         })
     }
 
-    public funcionalidades(action: string){
+    public funcionalidades(action: string, msg:Mensagem){
         switch (action) {
             case 'hora':
-                
+                let date = this.pipeDate.transform(new Date(), 'HH:mm')
+                msg.res = 'Agora são ' + date;
                 break;
             case 'data':
-
+                let data = new Date();
+                let dia = data.getDate();
+                let mes = this.util.buscarMes(data.getMonth());
+                let semana = this.util.buscarSemana(data.getDay());
+                msg.res = 'Hoje é ' + semana + ' dia ' + dia + ' de ' + mes + ' de  ' + data.getFullYear();
                 break;
             case 'clima':
-
+                this.exibirClima();
                 break;
             default:
-            break;
+                return null;
         }
+        return msg;
     }
 
     public exibirHora(){

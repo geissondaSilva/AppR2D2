@@ -9,4 +9,5 @@ export class Mensagem{
     public resposta:Resposta;
     public name:string;
     public idDialogo:number;
+    public obj:any;
 }

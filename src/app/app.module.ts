@@ -17,6 +17,7 @@ import { ChatPage } from '../pages/chat/chat-page';
 import { DrivePage } from '../pages/drive/drive-page';
 import { SobrePage } from '../pages/sobre/sobre-page';
 import { PersonagensPage } from '../pages/personagens/pesonagens-page';
+import { ClimaComponente } from '../components/clima-componente/clima.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { PersonagensPage } from '../pages/personagens/pesonagens-page';
     ChatPage,
     DrivePage,
     SobrePage,
-    PersonagensPage
+    PersonagensPage,
+    ClimaComponente,
   ],
   imports: [
     BrowserModule,
@@ -41,7 +43,8 @@ import { PersonagensPage } from '../pages/personagens/pesonagens-page';
     ChatPage,
     DrivePage,
     SobrePage,
-    PersonagensPage
+    PersonagensPage,
+    ClimaComponente
   ],
   providers: [
     StatusBar,
