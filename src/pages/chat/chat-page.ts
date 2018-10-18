@@ -29,7 +29,6 @@ export class ChatPage {
     public digitando:boolean = false;
     public comando:Comandos = new Comandos();
     public util: Util = new Util();
-    private pipeDate: DatePipe;
 
     constructor(public navCtrl: NavController,
     private conversaService:ConversaService,
@@ -165,13 +164,15 @@ export class ChatPage {
                 setTimeout(() => {
                     if(res.resposta != null){
                         let msg: Mensagem = this.funcionalidades(res.resposta.value, res);
-                        if(msg = null){
+                        if(msg == null){
                             this.mandarComando(res.name);
+                            this.mensagens.push(res);
                         }else{
                             this.mensagens.push(msg);
                         }
                     }else if(res.tipo == 'acao'){
                         this.mandarComando(res.name)
+                        this.mensagens.push(res)
                     }else{
                         this.mensagens.push(res);
                     }
@@ -232,7 +233,7 @@ export class ChatPage {
     public funcionalidades(action: string, msg:Mensagem){
         switch (action) {
             case 'hora':
-                let date = this.pipeDate.transform(new Date(), 'HH:mm')
+                let date = new DatePipe('pt-BR').transform(new Date(), 'HH:mm');
                 msg.res = 'Agora são ' + date;
                 msg.tipo = 'acao'
                 break;
@@ -245,8 +246,7 @@ export class ChatPage {
                 msg.tipo = 'acao'
                 break;
             case 'clima':
-                this.exibirClima();
-                break;
+                msg.tipo = 'clima';
             default:
                 return null;
         }

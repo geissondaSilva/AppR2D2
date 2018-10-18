@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { ErrorHandler, NgModule } from '@angular/core';
+import { ErrorHandler, NgModule, LOCALE_ID } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 
 import { MyApp } from './app.component';
@@ -18,6 +18,10 @@ import { DrivePage } from '../pages/drive/drive-page';
 import { SobrePage } from '../pages/sobre/sobre-page';
 import { PersonagensPage } from '../pages/personagens/pesonagens-page';
 import { ClimaComponente } from '../components/clima-componente/clima.component';
+import { registerLocaleData } from '@angular/common';
+import localePt from '@angular/common/locales/pt'
+
+registerLocaleData(localePt);
 
 @NgModule({
   declarations: [
@@ -53,7 +57,8 @@ import { ClimaComponente } from '../components/clima-componente/clima.component'
     SplashScreen,
     BluetoothSerial,
     NavigationBar,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    {provide: LOCALE_ID, useValue: 'pt-BR'}
   ]
 })
 export class AppModule {}

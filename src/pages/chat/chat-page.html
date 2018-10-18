@@ -64,6 +64,8 @@
             <img src="./../../assets/imgs/perfil.jpg" class="perfil-robo">
             <span class="text-info">{{msg.res}}</span>
         </div>
+
+        <clima-componente [mensagem]="msg" *ngIf="msg.tipo == 'clima'"></clima-componente>
     </div>
 </ion-content>
 <ion-footer>
