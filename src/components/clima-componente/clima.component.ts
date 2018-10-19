@@ -2,6 +2,8 @@ import { Component, Input } from '@angular/core';
 import { Mensagem } from '../../models/mensagem';
 import { LocalizacaoService } from '../../services/localizacao.service';
 import { ClimaService } from '../../services/clima.service';
+import { ClimaData } from '../../models/clima-data';
+import { Clima } from '../../models/clima';
 
 @Component({
     selector: 'clima-componente',
@@ -15,7 +17,7 @@ export class ClimaComponente {
 
     public carregando: boolean = true;
     public error: boolean = false;
-    public clima: any;
+    public clima: Clima = new Clima();
 
     constructor(private localizacaoService: LocalizacaoService,
     private climaService: ClimaService){

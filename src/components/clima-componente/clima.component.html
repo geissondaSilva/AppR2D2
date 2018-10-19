@@ -1,3 +1,22 @@
-<div class="clima">
-
+<div class="clima sombra">
+    <div class="fx-row">
+        <div>
+            <img src="https://cdn.pixabay.com/photo/2018/10/08/14/46/bird-3732867_960_720.jpg" class="imagem">
+        </div>
+        <div class="fxFlex">
+            <div class="titulo">Temp. °C</div>
+            <div class="resposta">{{clima.data.temperature}}</div>
+        </div>
+        <div class="fxFlex">
+            <div class="titulo">Hum. %</div>
+            <div class="resposta">{{clima.data.humidity}}</div>
+        </div>
+        <div class="fxFlex">
+            <div class="titulo">Vel. Km/h</div>
+            <div class="resposta">{{clima.data.wind_velocity}}</div>
+        </div>
+        <div>
+            <div class="data">{{clima.data.date | date:'dd/MM/yyyy'}}</div>
+        </div>
+    </div>
 </div>

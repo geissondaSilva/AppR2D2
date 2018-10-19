@@ -37,9 +37,9 @@
         </ion-card>
     </div>-->
     <div *ngFor="let msg of mensagens" [ngClass]="{'grupo-destinatario': msg.tipo == 'boot', 'card-mensagem': msg.tipo == 'resposta', 'acao-robo': msg.tipo == 'acao' }">
-        <span *ngIf="msg.tipo == 'user'" class="mensagem-simples remetente">{{msg.res}}</span>
+        <span *ngIf="msg.tipo == 'user'" class="mensagem-simples remetente sombra">{{msg.res}}</span>
 
-        <span *ngIf="msg.tipo == 'boot'" class="mensagem-simples destinatario">{{msg.res}}</span>
+        <span *ngIf="msg.tipo == 'boot'" class="mensagem-simples destinatario sombra">{{msg.res}}</span>
 
         <ion-card *ngIf="msg.tipo == 'pergunta'" class="card-pergunta" padding>
             <div class="questao">Você gostaria de tomar um café?</div>
@@ -60,7 +60,7 @@
             </ion-card-content>
         </ion-card>
 
-        <div *ngIf="msg.tipo == 'acao'" class="card-imagem-perfil">
+        <div *ngIf="msg.tipo == 'acao'" class="card-imagem-perfil sombra">
             <img src="./../../assets/imgs/perfil.jpg" class="perfil-robo">
             <span class="text-info">{{msg.res}}</span>
         </div>
