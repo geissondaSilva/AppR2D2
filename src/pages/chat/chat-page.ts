@@ -186,7 +186,7 @@ export class ChatPage {
                     me.mensagens = [...this.mensagens];
                     me.scrollRefresh();
                 }, 200);
-                this.mensagens.push(res)
+                // this.mensagens.push(res)
                 // this.content.resize();
             })
         }, () =>{
