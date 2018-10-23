@@ -29,6 +29,7 @@ export class ChatPage {
     public digitando:boolean = false;
     public comando:Comandos = new Comandos();
     public util: Util = new Util();
+    public mostrarMensagem:boolean = true;
 
     constructor(public navCtrl: NavController,
     private conversaService:ConversaService,
@@ -52,18 +53,14 @@ export class ChatPage {
 
     public reconhecer(){
         this.speechRecognition.startListening().subscribe((matches: Array<string>) =>{
-            console.log(matches)
-            this.resolveReconhecimento(matches);
-        },(onerror) => {
+            this.textoMensagem = matches[0];
+            setTimeout(() => {
+                let btn = document.getElementById('enviar');
+                btn.click();
+            }, 100);
+        },() => {
             
         });
-    }
-
-    public resolveReconhecimento(frases){
-        let me = this;
-        setTimeout(() => {
-            me.enviarMensagem(frases[0]);    
-        }, 50);
     }
 
     public initializeApp(){
@@ -165,8 +162,10 @@ export class ChatPage {
 
         this.digitando = true;
         let me = this;
+        this.mostrarMensagem = false;
         this.mensagemService.novaMensagem(msg, idPergunta).subscribe(data =>{
             me.digitando = false;
+            this.mostrarMensagem = true;
             data.forEach(res =>{
                 setTimeout(() => {
                     if(res.resposta != null){
@@ -186,11 +185,10 @@ export class ChatPage {
                     me.mensagens = [...this.mensagens];
                     me.scrollRefresh();
                 }, 200);
-                // this.mensagens.push(res)
-                // this.content.resize();
             })
         }, () =>{
             this.digitando = false;
+            this.mostrarMensagem = true;
             alert('erro ao mandar mensagem')
         })
     }

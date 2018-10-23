@@ -8,34 +8,6 @@
     </ion-navbar>
 </ion-header>
 <ion-content class="fundo" padding>
-    <!--<div>
-        <span class="mensagem-simples remetente">ola</span>
-    </div>
-    <div class="grupo-destinatario">
-        <span class="mensagem-simples destinatario">ola como vai?</span>
-    </div>
-    <span class="mensagem-simples remetente">Estou bem e vc? Vamos fazer um teste para ver se esta merda vai quebrar linha.</span>
-    <div class="card-mensagem">
-        <ion-card class="card-pergunta" padding>
-            <div class="questao">Você gostaria de tomar um café?</div>
-            <div class="card-resposta">
-                <button ion-button>Sim</button>
-            </div>
-            <div class="card-resposta">
-                <button ion-button>Não</button>
-            </div>
-        </ion-card>
-    </div>
-    <div class="card-mensagem">
-        <ion-card class="resposta">
-            <ion-card-header>
-                <ion-card-title>Por que anaquin morreu</ion-card-title>
-            </ion-card-header>
-            <ion-card-content>
-                <p>Por que ele é um merda que não sabia lutar direito</p>
-            </ion-card-content>
-        </ion-card>
-    </div>-->
     <div *ngFor="let msg of mensagens" [ngClass]="{'grupo-destinatario': msg.tipo == 'boot', 'card-mensagem': msg.tipo == 'resposta', 'acao-robo': msg.tipo == 'acao' }">
         <span *ngIf="msg.tipo == 'user'" class="mensagem-simples remetente sombra">{{msg.res}}</span>
 
@@ -83,7 +55,7 @@
                 <ion-icon class="enviar" name="mic"></ion-icon>
             </button>-->
             <ion-fab class="btn-send">
-                <button (click)="enviarMensagem(textoMensagem)" *ngIf="textoMensagem != null && textoMensagem != ''" color="primary" ion-fab>
+                <button id="enviar" (click)="enviarMensagem(textoMensagem)" *ngIf="textoMensagem != null && textoMensagem != ''" color="primary" ion-fab>
                     <ion-icon name="send"></ion-icon>
                 </button>
                 <button (click)="reconhecer()" *ngIf="textoMensagem == null || textoMensagem == ''" color="primary" ion-fab>
