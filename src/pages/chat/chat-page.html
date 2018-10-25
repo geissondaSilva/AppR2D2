@@ -25,7 +25,9 @@
 
         <ion-card *ngIf="msg.tipo == 'resposta'" class="resposta">
             <ion-card-header>
-                <ion-card-title>{{msg.res}}</ion-card-title>
+                <div class="titulo">
+                    <h3>{{msg.res}}</h3>
+                </div>
             </ion-card-header>
             <ion-card-content>
                 <p>{{msg.resposta.value}}</p>
