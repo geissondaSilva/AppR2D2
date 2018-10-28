@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { NavController, AlertController } from 'ionic-angular';
+import { Component, ViewChild } from '@angular/core';
+import { NavController, AlertController, Content } from 'ionic-angular';
 import { ConversaService } from '../../services/conversa.service';
 import { Conversa } from '../../models/conversa';
 import { Mensagem } from '../../models/mensagem';
@@ -13,7 +13,6 @@ import { LocalizacaoService } from '../../services/localizacao.service';
 import { ClimaService } from '../../services/clima.service';
 import { DatePipe } from '@angular/common';
 import { Util } from './../util';
-import { Resposta } from '../../models/resposta';
 
 @Component({
     selector: 'page-chat',
@@ -22,6 +21,7 @@ import { Resposta } from '../../models/resposta';
 })
 
 export class ChatPage {
+    @ViewChild(Content) content: Content;
 
     public conversa:Conversa = new Conversa();
     public mensagens:Mensagem[] = [];
@@ -29,6 +29,7 @@ export class ChatPage {
     public digitando:boolean = false;
     public comando:Comandos = new Comandos();
     public util: Util = new Util();
+    public mostrarMensagem:boolean = true;
 
     constructor(public navCtrl: NavController,
     private conversaService:ConversaService,
@@ -41,7 +42,6 @@ export class ChatPage {
     private localizacao: LocalizacaoService,
     private clima: ClimaService) {
         this.novaConversa();
-        this.exibirClima();
         //reconhecimento de voz permissao
         this.speechRecognition.isRecognitionAvailable().then((available: boolean) => console.log(available));
 
@@ -53,9 +53,12 @@ export class ChatPage {
 
     public reconhecer(){
         this.speechRecognition.startListening().subscribe((matches: Array<string>) =>{
-            console.log(matches)
-            this.enviarMensagem(matches[0]);
-        },(onerror) => {
+            this.textoMensagem = matches[0];
+            setTimeout(() => {
+                let btn = document.getElementById('enviar');
+                btn.click();
+            }, 100);
+        },() => {
             
         });
     }
@@ -158,29 +161,34 @@ export class ChatPage {
         }
 
         this.digitando = true;
+        let me = this;
+        this.mostrarMensagem = false;
         this.mensagemService.novaMensagem(msg, idPergunta).subscribe(data =>{
-            this.digitando = false;
+            me.digitando = false;
+            this.mostrarMensagem = true;
             data.forEach(res =>{
                 setTimeout(() => {
                     if(res.resposta != null){
                         let msg: Mensagem = this.funcionalidades(res.resposta.value, res);
                         if(msg == null){
-                            this.mandarComando(res.name);
-                            this.mensagens.push(res);
+                            me.mandarComando(res.name);
+                            me.mensagens.push(res);
                         }else{
-                            this.mensagens.push(msg);
+                            me.mensagens.push(msg);
                         }
                     }else if(res.tipo == 'acao'){
-                        this.mandarComando(res.name)
-                        this.mensagens.push(res)
+                        me.mandarComando(res.name)
+                        me.mensagens.push(res) 
                     }else{
-                        this.mensagens.push(res);
+                        me.mensagens.push(res);
                     }
+                    me.mensagens = [...this.mensagens];
+                    me.scrollRefresh();
                 }, 200);
             })
-            this.scrollRefresh();
         }, () =>{
             this.digitando = false;
+            this.mostrarMensagem = true;
             alert('erro ao mandar mensagem')
         })
     }
@@ -204,6 +212,9 @@ export class ChatPage {
                 {
                     text: 'Conectar-se ao R2D2',
                     icon: 'bluetooth',
+                    handler: () => {
+                        this.conectar();
+                    }
                     
                 },
                 {
@@ -251,27 +262,5 @@ export class ChatPage {
                 return null;
         }
         return msg;
-    }
-
-    public exibirHora(){
-
-    }
-
-    public exibirData(){
-
-    }
-
-    public exibirClima(){
-        //buscar a localizacao
-        this.geolocation.getCurrentPosition().then(position =>{
-            console.log('position', position);
-            //buscar cidade e estado
-            this.clima.buscarIdCidade('Pato Branco', 'PR').subscribe(res =>{
-                console.log('idcidade',res)
-                this.clima.buscarClimaAtual(res[0].id).subscribe(clima =>{
-                    console.log('clima', clima);
-                })
-            })
-        })
     }
 }
