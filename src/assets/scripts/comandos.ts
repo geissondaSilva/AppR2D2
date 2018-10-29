@@ -1,15 +1,16 @@
 export class Comandos{
     private comandos = {
         "breaking": "0",
-        "runfront": '1',
-        "runback": '2',
-        "runright": '3',
-        "runleft": '4',
-        "stoping": '5',
-        "seeleft": '6',
-        "seeright": '7',
-        "nop": '8',
-        "acenderled": '9'
+        "runfront": 'a',
+        "runback": 'b',
+        "runleft": 'c',
+        "runright": 'd',
+        "negar": 'e',
+        "afirmar": 'f',
+        "balancar": 'g',
+        "viraresquerda": 'H',
+        "virardireita": 'i',
+        "dancar": 'j'
     }
 
     public getComando(value:string){
