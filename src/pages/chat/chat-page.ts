@@ -183,7 +183,7 @@ export class ChatPage {
                         me.mensagens.push(res);
                     }
                     me.mensagens = [...this.mensagens];
-                    me.scrollRefresh();
+                    me.atualizarScroolFoco();
                 }, 200);
             })
         }, () =>{
