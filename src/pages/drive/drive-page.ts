@@ -85,7 +85,7 @@ export class DrivePage{
     public run(a:string){
         if(!this.ativo)return;
         this.bluetoothSerial.write(a).then(data =>{
-            alert(data)
+            // alert(data)
         }, err =>{
             alert(err)
         })

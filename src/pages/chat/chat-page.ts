@@ -83,8 +83,8 @@ export class ChatPage {
     }
 
     public conectar(){
-        this.bluetooth.isConnected().then(con =>{
-            console.log(con);
+        this.bluetooth.isEnabled().then(con =>{
+            this.conectarR2();
         }).catch(() =>{
             this.alertCtrl.create({
                 title: 'Atenção!',
@@ -95,9 +95,7 @@ export class ChatPage {
                         handler: () =>{
                             this.bluetooth.showBluetoothSettings().then((d) =>{
                                 this.bluetooth.isConnected().then(() =>{
-                                    this.bluetooth.list().then(data =>{
-                                        console.log('lista de dispositivos', data);
-                                    })
+                                    this.conectarR2();
                                 })
                             })
                         }
@@ -105,6 +103,15 @@ export class ChatPage {
                 ]
             }).present();
         })
+    }
+
+    public conectarR2(){
+        this.bluetooth.connect('00:21:13:04:5F:2F').subscribe(data =>{
+            alert('Conectado com sucesso!')
+        }, (err) =>{
+            alert('Erro ao conectar com o R2D2');
+        })
+        
     }
 
     public novaConversa(){
