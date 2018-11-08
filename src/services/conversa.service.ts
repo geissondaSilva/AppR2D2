@@ -20,10 +20,11 @@ export class ConversaService extends AbstractService<Conversa> {
         return 'conversa';
     }
 
-    public novaConversa(nova):Observable<Conversa>{
+    public novaConversa(nova, ip):Observable<Conversa>{
         let options = new RequestOptions();
         options.headers = new Headers();
         options.headers.append('Content-Type', 'application/json');
+        this.getUrlService(ip);
         return this.http.post(this.urlWebSistema + '/novaconversa/' + 'bemvindo', nova, options).pipe(map(res => res.json()));
     }
 }

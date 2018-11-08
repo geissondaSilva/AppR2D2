@@ -13,6 +13,7 @@ import { LocalizacaoService } from '../../services/localizacao.service';
 import { ClimaService } from '../../services/clima.service';
 import { DatePipe } from '@angular/common';
 import { Util } from './../util';
+import { AppPreferences } from '@ionic-native/app-preferences';
 
 @Component({
     selector: 'page-chat',
@@ -30,6 +31,7 @@ export class ChatPage {
     public comando:Comandos = new Comandos();
     public util: Util = new Util();
     public mostrarMensagem:boolean = true;
+    public ip: string = '192.168.2.112';
 
     constructor(public navCtrl: NavController,
     private conversaService:ConversaService,
@@ -38,10 +40,11 @@ export class ChatPage {
     public actionCtrl:ActionSheetController,
     private alertCtrl:AlertController,
     private bluetooth:BluetoothSerial,
-    private geolocation: Geolocation,
-    private localizacao: LocalizacaoService,
-    private clima: ClimaService) {
-        this.novaConversa();
+    private preferences: AppPreferences) {
+        this.preferences.fetch('', 'url').then(url => {
+            this.ip = url;
+            this.novaConversa();
+        })
         //reconhecimento de voz permissao
         this.speechRecognition.isRecognitionAvailable().then((available: boolean) => console.log(available));
 
@@ -120,7 +123,7 @@ export class ChatPage {
         let conversa:Conversa = new Conversa();
         conversa.idDispositivo = 1;
         this.digitando = true;
-        this.conversaService.novaConversa(conversa).subscribe((data) =>{
+        this.conversaService.novaConversa(conversa, this.ip).subscribe((data) =>{
             this.conversa = data;
             this.mensagens = data.mensagens
             this.digitando = false;
@@ -170,7 +173,7 @@ export class ChatPage {
         this.digitando = true;
         let me = this;
         this.mostrarMensagem = false;
-        this.mensagemService.novaMensagem(msg, idPergunta).subscribe(data =>{
+        this.mensagemService.novaMensagem(msg, idPergunta, this.ip).subscribe(data =>{
             me.digitando = false;
             this.mostrarMensagem = true;
             data.forEach(res =>{

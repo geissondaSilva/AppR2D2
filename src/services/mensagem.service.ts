@@ -20,10 +20,11 @@ export class MensagemService extends AbstractService<Mensagem> {
         return 'mensagem';
     }
 
-    public novaMensagem(nova, id):Observable<Array<Mensagem>>{
+    public novaMensagem(nova, id, ip):Observable<Array<Mensagem>>{
         let options = new RequestOptions();
         options.headers = new Headers();
         options.headers.append('Content-Type', 'application/json');
+        this.getUrlService(ip);
         return this.http.post(this.urlWebSistema + '/novamensagem?idpergunta=' + id , nova, options).pipe(map(res => res.json()));
     }
 }

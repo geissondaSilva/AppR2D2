@@ -86,5 +86,6 @@
     <plugin name="cordova-plugin-bluetooth-serial" spec="^0.4.7" />
     <plugin name="cordova-plugin-navigationbar" spec="^1.0.31" />
     <plugin name="cordova-plugin-geolocation" spec="4.0.1" />
+    <plugin name="cordova-plugin-app-preferences" spec="0.99.3" />
     <engine name="android" spec="6.4.0" />
 </widget>

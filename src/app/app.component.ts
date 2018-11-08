@@ -7,6 +7,7 @@ import { HomePage } from '../pages/home/home';
 import { ListPage } from '../pages/list/list';
 import { SobrePage } from '../pages/sobre/sobre-page';
 import { PersonagensPage } from '../pages/personagens/pesonagens-page';
+import { ConfiguracaoComponent } from '../pages/configuracao/configuracao.component';
 
 
 @Component({
@@ -50,6 +51,11 @@ export class MyApp {
 
     openPersonagens(){
         this.nav.push(PersonagensPage);
+        this.menu.toggle();
+    }
+    
+    openConfiguracao(){
+        this.nav.push(ConfiguracaoComponent);
         this.menu.toggle();
     }
 }

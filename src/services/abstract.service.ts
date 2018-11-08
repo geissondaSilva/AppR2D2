@@ -2,11 +2,14 @@ import { Observable } from 'rxjs/Rx';
 import { HttpModule, Http } from '@angular/http';
 import { Injectable } from '@angular/core';
 import 'rxjs/add/operator/toPromise';
+import { AppPreferences } from '@ionic-native/app-preferences';
 
 //import { Filtro } from './../models/filtro';
 
 @Injectable()
 export abstract class AbstractService<T>{
+
+    public preferences = new AppPreferences();
 
     // protected protocolo: string = 'https';
     // public ip: string = 'tranquil-fjord-34651.herokuapp.com';
@@ -28,6 +31,12 @@ export abstract class AbstractService<T>{
     }
 
     public abstract getWebService(): string;
+
+    public getUrlService(ip){
+        this.ip = ip;
+        this.urlSistema = this.protocolo + '://' + this.ip + ':' + this.porta + '/' + this.contextSistema;
+        this.urlWebSistema = this.urlSistema + this.getWebService();
+    }
 
     public findAll(): Observable<Array<T>> {
         return this.http.get(this.urlWebSistema).map(res => {

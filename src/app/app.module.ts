@@ -10,6 +10,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { SpeechRecognition } from '@ionic-native/speech-recognition';
 import { BluetoothSerial } from '@ionic-native/bluetooth-serial';
 import { NavigationBar } from '@ionic-native/navigation-bar';
+import { AppPreferences } from '@ionic-native/app-preferences';
 
 import { ListPage } from '../pages/list/list';
 import { HomePage } from '../pages/home/home';
@@ -20,6 +21,7 @@ import { PersonagensPage } from '../pages/personagens/pesonagens-page';
 import { ClimaComponente } from '../components/clima-componente/clima.component';
 import { registerLocaleData } from '@angular/common';
 import localePt from '@angular/common/locales/pt'
+import { ConfiguracaoComponent } from '../pages/configuracao/configuracao.component';
 
 registerLocaleData(localePt);
 
@@ -33,6 +35,7 @@ registerLocaleData(localePt);
     SobrePage,
     PersonagensPage,
     ClimaComponente,
+    ConfiguracaoComponent
   ],
   imports: [
     BrowserModule,
@@ -48,7 +51,8 @@ registerLocaleData(localePt);
     DrivePage,
     SobrePage,
     PersonagensPage,
-    ClimaComponente
+    ClimaComponente,
+    ConfiguracaoComponent
   ],
   providers: [
     StatusBar,
@@ -56,6 +60,7 @@ registerLocaleData(localePt);
     Geolocation,
     SplashScreen,
     BluetoothSerial,
+    AppPreferences,
     NavigationBar,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     {provide: LOCALE_ID, useValue: 'pt-BR'}
